@@ -210,4 +210,4 @@ Optional<Member> findByUsername(String name); //단건
 ```
 - 조회 결과가 많거나 없으면?
 - 컬렉션->없을떄 : 빈 컬렉션 반환
-- 단건 조회 -> 없을떄 : null반환, 2건이상 : NonUniqueResultException 예외 발생
+- 단건 조회(엔티티or옵셔널) -> 없을떄 : null반환, 2건이상 : NonUniqueResultException 예외 발생
