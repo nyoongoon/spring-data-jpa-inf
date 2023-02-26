@@ -171,7 +171,7 @@ public class Team {
 List<Member> findUser(@Param("username") String username, @Param("age") int age);
 ```
 
-### @Query 값, DTO 조회하기
+### @Query 값, DTO 조회하기 -> QueryDSL 쓰면 더 편함
 #### 단순한 값 하나를 조회
 ```
 @Query("select m.username from Member m")
@@ -193,3 +193,21 @@ public class MemberDto{
 @Query(select new study.datajpa.dto.MemberDto(m.id, m.username, t.name) from Member m join m.team t")
 List<MemberDto> findMemberDto();
 ```
+
+## 파라미터 바인딩 
+- 이름 기반 파라미터 쓰는 것이 좋음
+- Collection 타입으로 in 절 지원
+```
+Query("select m from Member m where m.username in :names")
+List<Member> findByNames(@Param("names") List<String> names);
+```
+
+## 반환타입 
+```
+List<Member> findByUsername(String name); //컬렉션
+Member findByUsername(String name); //단건
+Optional<Member> findByUsername(String name); //단건
+```
+- 조회 결과가 많거나 없으면?
+- 컬렉션->없을떄 : 빈 컬렉션 반환
+- 단건 조회 -> 없을떄 : null반환, 2건이상 : NonUniqueResultException 예외 발생
